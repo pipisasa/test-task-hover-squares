@@ -17,6 +17,7 @@ const Area: React.FunctionComponent<IAreaProps> = ({ size=0, handleHover }) => {
     if(handleHover)handleHover(x, y);
     return toggleCell(x, y);
   }
+  // console.log(area, area.map)
   return (
     <div className="area">
       {area.map.map((row, rowI)=>(

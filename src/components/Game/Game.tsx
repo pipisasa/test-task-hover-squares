@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { Component, createRef, RefObject } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../helpers/constants/apiUrl'
 import Fallback from '../Fallback/Fallback';
@@ -38,7 +38,7 @@ interface IGameState {
 }
 
 export class Game extends Component<IGameProps, IGameState> {
-
+  historyListRef: RefObject<HTMLUListElement>;
   constructor(props: IGameProps){
     super(props)
     this.state = {
@@ -47,6 +47,7 @@ export class Game extends Component<IGameProps, IGameState> {
       error: null,
       history: []
     };
+    this.historyListRef = createRef<HTMLUListElement>();
   }
 
   fetchAppMode = async ()=>{
@@ -67,6 +68,9 @@ export class Game extends Component<IGameProps, IGameState> {
     if(prevState.currentMode !== this.state.currentMode){
       this.setState({ history: [] });
     }
+    if(prevState.history.length !== this.state.history.length && this.historyListRef.current){
+      this.historyListRef.current.scrollTop = this.historyListRef.current.scrollHeight;
+    }
   }
 
   readonly selectOptions: ReadonlyArray<{value: string, label: string}> = [
@@ -82,8 +86,9 @@ export class Game extends Component<IGameProps, IGameState> {
   }
 
   handleHover = (x: number, y: number)=>{
-    this.state.history.push({x,y});
-    this.setState({});
+    this.setState({
+      history: [...this.state.history, {x, y}]
+    });
   }
 
   render() {
@@ -106,13 +111,13 @@ export class Game extends Component<IGameProps, IGameState> {
         </div>
         <div className="game__right game_history">
           <h3 className="game_history__header">Hover Squares</h3>
-          <ul className="game_history__list">
+          <ul className="game_history__list" ref={this.historyListRef}>
             {this.state.history.map(({x, y}, i)=>(
               <li 
                 className="game_history__item"
                 key={`game_history__item-${i}`}
               >
-                {`Row ${y} Col ${x}`}
+                {`Row ${y+1} Col ${x+1}`}
               </li>
             ))}
           </ul>
