@@ -1,0 +1,44 @@
+.game{
+  /* padding: 1rem; */
+  display: flex;
+  flex-wrap: wrap;
+}
+/* .game__left{
+  min-width: 50%;
+} */
+.game__right, .game__left{
+  padding: 0 1rem;
+}
+
+/*? App Mode */
+.app_mode{
+  padding: 0 0 1rem 0;
+}
+.app_mode__header{
+  margin: 1rem 0;
+  font-size: 1.2rem;
+}
+.app_mode__select{
+  width: 20rem;
+}
+
+/*? Game History */
+
+/* .game_history{
+  
+} */
+.game_history__header{
+  margin: 1rem 0;
+}
+.game_history__list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.game_history__item{
+  background-color: #ff7f504f;
+  padding: 5px 12px;
+  color: #ff5722;
+  margin: 7px 0;
+  border-radius: 5px;
+}

@@ -1,0 +1,1 @@
+export const API_URL: string = process.env.REACT_APP_API_URL || 'https://demo1030918.mockable.io';
